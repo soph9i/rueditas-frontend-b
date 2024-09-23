@@ -32,10 +32,11 @@ public class BuscarController {
                             @RequestParam("numeroPlaca") String numeroPlaca) {
 
         // Validando campos de entrada
-        if (numeroPlaca == null || numeroPlaca.trim().length() == 0 ){
+        if (numeroPlaca == null ||  numeroPlaca.trim().length() != 7
+                || !numeroPlaca.trim().matches("^[a-zA-Z0-9\\-]+$")){
 
             BuscarModel buscarModel = new BuscarModel("01",
-                    "Error: Es necesario ingresar un número de placa", "", "", 0,
+                    "Error: Debe ingresar una placa correcta", "", "", 0,
                     0, "");
             model.addAttribute("buscarModel", buscarModel);
             return "buscar";
@@ -52,7 +53,7 @@ public class BuscarController {
                 model.addAttribute("buscarModel", buscarModel);
                 return "resultado";
             } else {
-                BuscarModel buscarModel = new BuscarModel("02", "Error: Vehiculo no encontrado","", "",
+                BuscarModel buscarModel = new BuscarModel("02", "Error: No se encontró un vehículo para la placa ingresada","", "",
                         0, 0, "");
                 model.addAttribute("buscarModel", buscarModel);
                 return "buscar";
